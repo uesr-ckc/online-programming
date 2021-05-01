@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style type="text/css">
+        div#wrap {
+            position: fixed;
+            top: 25%;
+            left: 37%;
+            margin: 0 auto;
+            border: 1px #9fcdff;
+            backdrop-filter: opacity(0.8);
+        }
+    </style>
+</head>
+
+<body bgcolor="gray">
+<div style="display: flex;justify-content: center;height: 50px;align-items: center;margin-top:5%;">
+    <font size="20px">ONLINE PROGRAMMING</font>
+</div>
+
+<div id="wrap"
+     style="height: 300px;width: 400px;display: flex;justify-content: center;align-items: center; background-color: rgba(183,177,37,0.09);">
+    <form id="from" method="POST" th:action="@{/registered}">
+        <label style="color: red" th:text="${msg}"></label>
+        <div style="display: flex;justify-content: center;height: 30px;align-items: center;margin-top:5%">
+            <font size="4px">UId&nbsp;&nbsp;:&nbsp;&nbsp;</font>
+            <input name="userId" style="height: 25px;" type="text">
+        </div>
+        <div style="display: flex;justify-content: center;height: 50px;align-items: center;margin-top:5%">
+            <font size="4px">账&nbsp;号:&nbsp;&nbsp;</font>
+            <input name="username" style="height: 25px;" type="text">
+        </div>
+        <div style="display: flex;justify-content: center;height: 50px;align-items: center;">
+            <font size="4px">密&nbsp;码:&nbsp;&nbsp;</font>
+            <input name="password" style="height: 25px;" type="password">
+        </div>
+        <div style="display: flex;justify-content: center;height: 50px;align-items: center;">
+            <input id="submitBtn" style="height: 30px; width: 70px; background-color: skyblue" type="submit"
+                   value="注&nbsp;&nbsp;册">
+            &nbsp;&nbsp;&nbsp;&nbsp;<a th:href="@{/}">帐号登录</a>
+        </div>
+    </form>
+</div>
+</body>
+<SCRIPT>
+    if (window.addEventListener) {
+        var lbox = document.querySelector(".live2d"), grab = document.querySelector(".live2d");
+        var store = {move: false};
+        document.addEventListener("mousemove", function (event) {
+            store.y = event.pageY;
+            if (store.move == true) lbox.scrollTop = store.startY - store.y;
+            event.preventDefault();
+        });
+    }
+</SCRIPT>
+<SCRIPT color="0,0,255" count="360" opacity="0.7" th:src="@{js/canvas_nest.js}" zindex="-2"></SCRIPT>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Online Programming</title>
+</head>
+<body>
+<div>
+    <div style="width:50%; height:310px; border:1px ;float:left">
+        欢迎 &nbsp;&nbsp;<label style="color: red" th:text="${username}"></label>!
+        &nbsp;&nbsp;&nbsp;<a th:href="@{/info}">修改个人信息</a>
+        <br><br>  <!--TODO-->
+        <textarea id="Code" style="width: 100%; height: 100%"></textarea>
+    </div>
+
+    <div style="width:50%;height:300px;border:1px;float:right">
+        <div style=" width: 100%; height: 60%">
+            <form id="fromProblem" method="GET">
+                <div>
+                    <div style="float:left">
+                        <label> 文件名：<input id="filename" name="filename" type="text">
+                            <input checked name="suffix" onclick="Java()" type="radio" value="java">.Java
+                            <input name="suffix" onclick="C_CPP()" type="radio" value="c">.C
+                            <input name="suffix" onclick="C_CPP()" type="radio" value="cpp">.C++
+                        </label>
+                    </div>
+                    <div style="float:right">
+                        <input onclick="submitProblem()" type="button" value="运   行">
+                    </div>
+                    <div hidden="true" id="CompileDiv" style="float:right">
+                        <input onclick="CompileProblem()" type="button" value="编   译">&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                </div>
+                <br><br>
+                <textarea id="con" name="con" style="width: 100%; height: 310px;"></textarea><br>
+            </form>
+        </div>
+    </div>
+</div>
+<div hidden="true" id="divaa" style="width:100%;position:fixed;bottom:10px;left:0;">
+    <div style="float:left">
+        <label>运行结果:</label>
+    </div>
+    <br>
+    <div style="width:100%;height: 250px;display: flex;justify-content: center;">
+        <textarea id="result" style="width:90%;height: 250px"></textarea>
+    </div>
+</div>
+
+</body>
+<script th:src="@{easyui/jquery.min.js}"></script>
+<script th:src="@{easyui/jquery.easyui.min.js}"></script>
+<script type="text/javascript">
+    $.ajax({
+        type: "post",
+        url: "/problem",
+        async: false,
+        dataType: "json",
+        success: function (msg) {
+            add(msg);
+        }
+    });
+
+    function add(result) {
+        $.each(result, function (index, obj) {
+            $("#Code").append(obj);
+        });
+    }
+</script>
+<script type="text/javascript">
+    function Java() {
+        $("#CompileDiv").attr("hidden", "true")
+    }
+
+    function C_CPP() {
+        $("#CompileDiv").removeAttr("hidden");
+    }
+</script>
+
+<script type="text/javascript">
+    function submitProblem() {
+        $("#divaa").removeAttr("hidden");
+
+        $.ajax({
+            type: "get",
+            url: "/compile",
+            async: false,
+            data: $("#fromProblem").serialize(),
+            dataType: "text",
+            success: function (msg) {
+                $("#result").val(msg);
+            }
+        })
+    }
+
+    function CompileProblem() {
+        $("#divaa").removeAttr("hidden");
+        $.ajax({
+            type: "get",
+            url: "/run",
+            async: false,
+            data: $("#fromProblem").serialize(),
+            dataType: "text",
+            success: function (msg) {
+                $("#result").val(msg);
+            }
+        })
+    }
+</script>
+
+
+<SCRIPT>
+    if (window.addEventListener) {
+        var lbox = document.querySelector(".live2d"), grab = document.querySelector(".live2d");
+        var store = {move: false};
+        document.addEventListener("mousemove", function (event) {
+            store.y = event.pageY;
+            if (store.move == true) lbox.scrollTop = store.startY - store.y;
+            event.preventDefault();
+        });
+    }
+</SCRIPT>
+<SCRIPT color="0,0,255" count="360" opacity="0.7" th:src="@{js/canvas_nest.js}" zindex="-2"></SCRIPT>
+
+
+</html>
