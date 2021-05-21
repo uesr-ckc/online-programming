@@ -25,10 +25,10 @@
                         </label>
                     </div>
                     <div style="float:right">
-                        <input onclick="submitProblem()" type="button" value="运   行">
+                        <input id="button1" onclick="submitProblem()" type="button" value="运   行">
                     </div>
                     <div hidden="true" id="CompileDiv" style="float:right">
-                        <input onclick="CompileProblem()" type="button" value="编   译">&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input id="button2" onclick="CompileProblem()" type="button" value="编   译">&nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                 </div>
                 <br><br>
@@ -69,11 +69,15 @@
 </script>
 <script type="text/javascript">
     function Java() {
-        $("#CompileDiv").attr("hidden", "true")
+        $("#CompileDiv").attr("hidden", "true");
+        $("#button1").attr("value","运  行");
+        $("#button2").attr("value","编  译");
     }
 
     function C_CPP() {
         $("#CompileDiv").removeAttr("hidden");
+        $("#button1").attr("value","编  译");
+        $("#button2").attr("value","运  行");
     }
 </script>
 
